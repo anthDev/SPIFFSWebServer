@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<header> ⚡️ESP Dashboard - Projet CNAM STMN 2021 - Anthony Chambet⚡️</header>
+<link rel="stylesheet" href="/style.css">
+<body>
+
+<h1 class =center>My Dashboard</h1>
+<p>Diff&#xE9;rent. Familier.
+MyDashBoard fait souffler un vent nouveau sur vos activit&#xE9s les plus quotidiennes, en les simplifiant comme jamais. De nouvelles fonctionnalit&#xE9;s vous aident &agrave; obtenir exactement ce qu'il vous faut &agrave; l&apos;instant T.</p>
+<br>
+<h3>Commande de la LED Antenne de l'ESP (D4) :</h3>
+
+<h4>
+	<button type="button" onclick="sendData(1)">LED ON</button>
+	<br/>
+</h4>
+<h4>
+	<button type="button" onclick="sendData(0)">LED OFF</button>
+	<br/>
+</h4>	
+<h3>Commande de la LED Antenne de l'ESP (D0) :</h3>
+<h4>
+	<button type="button" onclick="sendData2(1)">LED ON</button>
+	<br/>
+<h4>
+	<button type="button" onclick="sendData2(0)">LED OFF</button>
+	<br/>
+</h4>	
+<h3>Commande de la LED Couleur  :</h3>
+<h4>
+	<button type="button" onclick="sendData3(1)">LED ON</button>
+	<br/>
+<h4>
+	<button type="button" onclick="sendData3(0)">LED OFF</button>
+	<br/>
+</h4>
+<h3>Commande de la Lumière :</h3>
+<h4>
+	<button type="button" onclick="sendData4(1)">LIGHT ON</button>
+	<br/>
+</h4>
+<h4>
+	<button type="button" onclick="sendData4(0)">LIGHT OFF</button>
+	<br/>
+<h4>
+<h3>Etats Logique de la LED</h3>
+
+<div>
+     💡Etat de la LED 1 : <span id="ledState">NA</span></br>
+</div>
+<div>
+     💡Etat de la LED 2 : <span id="ledState2">NA</span></br>
+</div>
+<div>
+     💡Etat de la LED Couleur : <span id="ledStateColor">NA</span></br>
+</div>
+<div>
+     💡Etat de la Lumière : <span id="lightState">NA</span></br>
+</div>
+
+<h3>Valeurs de l'ESP</h3>
+<div>
+ESP uptime (s) : <span id="uptime">NA</span></br>
+</div>
+
+<div>
+🌡 ESP temp (°C) : <span id="temp">NA</span></br>
+💦 ESP hum (%) : <span id="hum">NA</span></br>
+</div>
+<h3>Exterieur</h3>
+<br>
+<a class="weatherwidget-io" href="https://forecast7.com/fr/43d125d93/toulon/" data-label_1="TOULON" data-label_2="WEATHER" data-theme="original" >TOULON WEATHER</a>
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
+
+<br>
+<br>
+<br>
+
+</h2>
+
+<h1>A propos </h1>
+<blockquote>
+  <h3>Hello, myDashBoard ! &#127881;</h3>
+  <p>Ce dashboard interactif permet de controler diff&#xE9;rentes commandes de l'ESP8266</p>
+</blockquote>
+<blockquote>
+  <h3>Compatible DarkMode &#127769; </h3>
+  <p>Activez le Mode sombre pour optimiser le confort visuel en conditions de faible &#xE9;clairage.</p>
+</blockquote>
+<blockquote>
+  <h3>Un design sobre, simple, efficace &#128526; </h3>
+  <p>Usage de la fameuse feuille de style new.css les infos se trouvent en dessous &#128071;</p>
+</blockquote>
+
+
+<br>
+<br>
+<br>
+<br>
+
+<h1>About the HTML and CSS on this DashBoard</h1>
+	<p>For this porject I make a brand simple HTML code and add the new.css to make it beautiful and simple<p> 
+    <p>new.css is a classless CSS framework to write modern websites using only HTML. It's <strong>~4.5kb.</strong></p>
+
+    <p>It's perfect for-</p>
+
+    <ul>
+        <li>A dead-simple blog</li>
+        <li>Collecting your most used links</li>
+        <li>Making a simple "about me" site</li>
+        <li>Rendering markdown-generated HTML</li>
+    </ul>
+
+    <p>The web was made for semantic HTML—let's start using it.</p>
+
+    <br>
+    
+    
+<a class=center>Made with &#x2764;&#xfe0f; by Anth</a>
+<script>
+
+// fonction permettant de demander le uptime 
+
+function getUptime() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       // l'élement uptime de la page prend la valeur de la réponse
+      document.getElementById("uptime").innerHTML = this.responseText; 
+    }
+  };
+  xhttp.open("GET", "getUptime", true);
+  xhttp.send();
+}
+
+function getTemp() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       // l'élement uptime de la page prend la valeur de la réponse
+      document.getElementById("temp").innerHTML = this.responseText; 
+    }
+  };
+  xhttp.open("GET", "getTemp", true);
+  xhttp.send();
+}
+
+function getHum() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       // l'élement uptime de la page prend la valeur de la réponse
+      document.getElementById("hum").innerHTML = this.responseText; 
+    }
+  };
+  xhttp.open("GET", "getHum", true);
+  xhttp.send();
+}
+
+
+// demande du uptime toutes les 2 secondes
+setInterval(function() {
+  
+  getUptime();
+  getTemp();
+  getHum();
+}, 2000); // 2000 ms
+
+// fonction permettant de changer l'état de la LED
+// on envoie un requête GET setLED avec ledState=0 ou 1 en argument  
+
+function sendData(led) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("ledState").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "setLED?ledState="+led, true);
+  xhttp.send();
+}
+
+function sendData2(led2) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("ledState2").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "setLED2?ledState2="+led2, true);
+  xhttp.send();
+}
+
+function sendData3(ledColor) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("ledStateColor").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "setLEDColor?ledStateColor="+ledColor, true);
+  xhttp.send();
+}
+
+function sendData4(setLight) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("lightState").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("GET", "setLight?lightState="+setLight, true);
+  xhttp.send();
+}
+
+</script>
+<script>
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
+</body>
+</html>
